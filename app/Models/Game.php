@@ -11,6 +11,8 @@ class Game extends Model
     /** @use HasFactory<\Database\Factories\GameFactory> */
     use HasFactory;
 
+    protected $guarded = [];
+
     public function playerOne(): BelongsTo
     {
         return $this->belongsTo(User::class, 'player_one_id');

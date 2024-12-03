@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -28,7 +29,8 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!$request->user()) abort(401);
+        else return Game::create(['player_one_id' => $request->user()->id]);
     }
 
     /**
@@ -36,7 +38,8 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        //
+        if (Auth::user()->id === $game->player_one_id) return $game;
+        else abort(403);
     }
 
     /**
