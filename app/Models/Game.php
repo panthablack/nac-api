@@ -22,4 +22,11 @@ class Game extends Model
     {
         return $this->belongsTo(User::class, 'player_two_id');
     }
+
+    public function join($player): Game
+    {
+        $this->player_two_id = $player->id;
+        $this->save();
+        return $this;
+    }
 }

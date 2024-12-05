@@ -5,23 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class GameController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return Game::with('playerOne')->whereNull('player_two_id')
+            ->where('player_one_id', '!=', $request->user()->id)->latest()->simplePaginate(10);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function join(Game $game, Request $request)
     {
-        //
+        Gate::authorize('join', $game);
+        if (!$game->player_two_id) return $game->join($request->user());
+        else if ($game->player_two_id == $request->user()->id) return $game;
     }
 
     /**
@@ -38,7 +42,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        if (Auth::user()->id === $game->player_one_id) return $game;
+        if (in_array(Auth::user()->id, [$game->player_one_id, $game->player_two_id])) return $game;
         else abort(403);
     }
 

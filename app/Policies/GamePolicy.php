@@ -25,6 +25,17 @@ class GamePolicy
     }
 
     /**
+     * Determine whether the user can join the game.
+     */
+    public function join(User $user, Game $game): bool
+    {
+        if ($user->id === $game->player_one_id) return false;
+        else if (!$game->player_two_id) return true;
+        else if ($game->player_two_id == $user->id) return true;
+        else return false;
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
