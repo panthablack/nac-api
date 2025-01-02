@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GameCreated;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,13 @@ class GameController extends Controller
     public function store(Request $request)
     {
         if (!$request->user()) abort(401);
-        else return Game::create(['player_one_id' => $request->user()->id]);
+        else {
+            $game =  Game::create(['player_one_id' => $request->user()->id]);
+            if (!!$game) {
+                GameCreated::dispatch($game);
+                return $game;
+            } else abort(500, 'Game creation failed.');
+        }
     }
 
     /**

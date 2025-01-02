@@ -12,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class GameJoined implements ShouldBroadcastNow
+class GameCreated implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -32,8 +32,7 @@ class GameJoined implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new Channel('nac-lobby'),
-            new PrivateChannel('games.' . $this->game->id)
+            new Channel('nac-lobby')
         ];
     }
 }

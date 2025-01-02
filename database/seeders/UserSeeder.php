@@ -15,16 +15,24 @@ class UserSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'James Randall',
-            'email' => 'james@manmachineltd.com',
-            'password' => bcrypt('secret')
-        ]);
+        if (env('APP_ENV') === 'local') {
+            User::factory()->create([
+                'name' => 'Admin',
+                'email' => 'admin@manmachineltd.com',
+                'password' => bcrypt('secret')
+            ]);
 
-        User::factory()->create([
-            'name' => 'James Randall',
-            'email' => 'admin@manmachineltd.com',
-            'password' => bcrypt('secret')
-        ]);
+            User::factory()->create([
+                'name' => 'James Randall',
+                'email' => 'james@manmachineltd.com',
+                'password' => bcrypt('secret')
+            ]);
+
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@manmachineltd.com',
+                'password' => bcrypt('secret')
+            ]);
+        }
     }
 }
