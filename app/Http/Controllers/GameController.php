@@ -20,7 +20,7 @@ class GameController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Join a game
      */
     public function join(Game $game, Request $request)
     {
