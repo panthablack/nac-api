@@ -39,11 +39,11 @@ class PlayerController extends Controller
                 'name' => $p1User['name'],
                 'email' => $p1User['email'],
             ];
-            $p2 = [
+            $p2 = $p2User ? [
                 'id' => $p2User['id'],
                 'name' => $p2User['name'],
                 'email' => $p2User['email'],
-            ];
+            ] : null;
             return [$p1, $p2];
         }
     }
