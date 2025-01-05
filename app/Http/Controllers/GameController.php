@@ -37,7 +37,18 @@ class GameController extends Controller
     {
         if (!$request->user()) abort(401);
         else {
-            $game =  Game::create(['player_one_id' => $request->user()->id]);
+            $validated = $request->validate([
+                'cols' => ['required', 'integer', 'between:2,9'],
+                'rows' => ['required', 'integer', 'between:2,9'],
+                'board_state' => ['required', 'array', 'between:9,81'],
+                'board_state.*' => ['integer', 'between:1,3']
+            ]);
+            $game =  Game::create([
+                'player_one_id' => $request->user()->id,
+                'cols' => $validated['cols'],
+                'rows' => $validated['rows'],
+                'board_state' => $validated['board_state'],
+            ]);
             if (!!$game) {
                 GameCreated::dispatch($game);
                 return $game;

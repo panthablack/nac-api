@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('player_one_id')->constrained()->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('player_two_id')->nullable()->constrained()->references('id')->on('users')->cascadeOnDelete();
-            $table->string('board_state')->nullable();
+            $table->integer('cols');
+            $table->integer('rows');
+            $table->string('board_state');
             $table->string('ended_at')->nullable();
             $table->timestamps();
         });
