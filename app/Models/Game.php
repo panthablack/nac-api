@@ -16,6 +16,13 @@ class Game extends Model
 
     protected $guarded = [];
 
+    public function casts(): array
+    {
+        return [
+            'board_state' => 'json'
+        ];
+    }
+
     public function playerOne(): BelongsTo
     {
         return $this->belongsTo(User::class, 'player_one_id');

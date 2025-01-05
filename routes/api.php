@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', fn(Request $request) => $request->user());
     Route::get('/games', [GameController::class, 'index']);
-    Route::get('/games/store', [GameController::class, 'store']);
+    Route::post('/games', [GameController::class, 'store']);
     Route::get('/games/{game}', [GameController::class, 'show']);
-    Route::get('/games/{game}/join', [GameController::class, 'join']);
+    Route::patch('/games/{game}', [GameController::class, 'update']);
+    Route::post('/games/{game}/join', [GameController::class, 'join']);
     Route::get('/games/{game}/players', [PlayerController::class, 'getGamePlayers']);
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BoardUpdated;
 use App\Events\GameCreated;
 use App\Models\Game;
 use Illuminate\Http\Request;
@@ -66,7 +67,24 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        //
+        // basic validation
+        $validated = $request->validate([
+            'board_state' => ['required', 'array', 'between:9,81'],
+            'board_state.*' => ['integer', 'between:1,3']
+        ]);
+
+        // further validation
+
+        // e.g., check move isn't illegal, etc.
+
+        // make update
+        $game->update($validated);
+
+        // Broadcast update
+        broadcast(new BoardUpdated($game))->toOthers();
+
+        // return game
+        return $game;
     }
 
     /**
