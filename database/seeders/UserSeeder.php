@@ -15,22 +15,28 @@ class UserSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        $adminName = env('ADMIN_NAME');
+        $adminEmail = env('ADMIN_EMAIL');
+        $adminPassword = env('ADMIN_PASSWORD');
+
+        if ($adminName && $adminEmail && $adminPassword) {
+            User::factory()->create([
+                'name' => $adminPassword,
+                'email' => $adminEmail,
+                'password' => bcrypt($adminPassword)
+            ]);
+        }
+
         if (env('APP_ENV') === 'local') {
             User::factory()->create([
-                'name' => 'Admin',
-                'email' => 'admin@manmachineltd.com',
+                'name' => 'Test User 1',
+                'email' => 'test1@manmachineltd.com',
                 'password' => bcrypt('secret')
             ]);
 
             User::factory()->create([
-                'name' => 'James Randall',
-                'email' => 'james@manmachineltd.com',
-                'password' => bcrypt('secret')
-            ]);
-
-            User::factory()->create([
-                'name' => 'Test User',
-                'email' => 'test@manmachineltd.com',
+                'name' => 'Test User 2',
+                'email' => 'test2@manmachineltd.com',
                 'password' => bcrypt('secret')
             ]);
         }

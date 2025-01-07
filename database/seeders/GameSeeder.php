@@ -13,6 +13,8 @@ class GameSeeder extends Seeder
      */
     public function run(): void
     {
-        Game::factory(5)->create();
+        if (env('APP_ENV') === 'local') {
+            Game::factory(5)->create();
+        }
     }
 }
