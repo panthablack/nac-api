@@ -49,7 +49,13 @@ class GameController extends Controller
                 'board_state' => $validated['board_state'],
             ]);
             if (!!$game) {
-                GameCreated::dispatch($game);
+                try {
+                    GameCreated::dispatch($game);
+                } catch (\Throwable $th) {
+                    if (env('APP_DEBUG'))
+                        abort(500, 'Event dispatch failed: ' . json_encode($th->getMessage()));
+                    else abort(500, 'Game creation failed.');
+                }
                 return $game;
             } else abort(500, 'Game creation failed.');
         }

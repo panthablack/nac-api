@@ -37,7 +37,13 @@ class Game extends Model
     {
         $this->player_two_id = $player->id;
         $this->save();
-        GameJoined::dispatch($this);
+        try {
+            GameJoined::dispatch($this);
+        } catch (\Throwable $th) {
+            if (env('APP_DEBUG'))
+                abort(500, 'Event dispatch failed: ' . json_encode($th->getMessage()));
+            else abort(500, 'Join game failed.');
+        }
         return $this;
     }
 }
