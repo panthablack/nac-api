@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
 
         if ($adminName && $adminEmail && $adminPassword) {
             User::factory()->create([
-                'name' => $adminPassword,
+                'name' => $adminName,
                 'email' => $adminEmail,
                 'password' => bcrypt($adminPassword)
             ]);
