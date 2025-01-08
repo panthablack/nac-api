@@ -23,9 +23,17 @@ return [
         env(
             'FRONTEND_URL',
             'http://localhost:3000',
+            'https://localhost:3000',
+            'http://localhost:8080',
+            'https://localhost:8080',
             'https://nac-spa.manmachineltd.com',
             'https://nac-api.manmachineltd.com',
-            'https://nac-reverb.manmachineltd.com'
+            'ws://nac-api.manmachineltd.com',
+            'wss://nac-api.manmachineltd.com',
+            'https://nac-reverb.manmachineltd.com',
+            'ws://nac-reverb.manmachineltd.com',
+            'wss://nac-reverb.manmachineltd.com',
+            'nac-reverb.manmachineltd.com'
         )
     ],
 
