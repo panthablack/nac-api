@@ -23,6 +23,9 @@ return [
         env(
             'FRONTEND_URL',
             'http://localhost:3000',
+            'http://api.app.localhost:8000',
+            'http://reverb.app.localhost:8080',
+            'http://spa.app.localhost:3000',
             'https://localhost:3000',
             'http://localhost:8080',
             'https://localhost:8080',
